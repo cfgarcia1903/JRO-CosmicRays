@@ -1,4 +1,4 @@
-import datetime
+
 
 from schainpy.model import *
 
@@ -9,30 +9,27 @@ startTime = '00:00:00'
 endTime = '23:00:00'
 
 
-pdataObj = SpectraReader()
-#spectraObj = SpectraProc()
+ReaderObj = SpectraReader()
+ProcObj = SpectraProc()
 #spectraPlot = SpectraPlot()
-pdataObj.name = 'SpectraReader'
-pdataObj.setup(path=dpath,
-                                                    startDate=startDate,
-                                                    endDate=endDate,
-                                                    #startTime=startTime,
-                                                    #endTime=endTime,
-                                                    online=0,
-                                                    walk=0,
-                                                    expLabel='',
-                                                    delay=5)
+ReaderObj.name = 'SpectraReader'
+ReaderObj.setup(path=dpath,
+                    startDate=startDate,
+                    endDate=endDate,
+                    startTime=startTime,
+                    endTime=endTime,
+                    online=0,
+                    walk=0,
+                    expLabel='',
+                    delay=5)
 
-#while(True):
-#    pdataObj.getData()
-#    print("read")
-#   if pdataObj.flagNoMoreFiles:
-#        break
-
-#    print("a")
+while(True):
+    ReaderObj.getData()
+    if ReaderObj.flagNoMoreFiles:
+        break
     
-#    print(pdataObj.dataOut.datatime)
-#    print(pdataObj.dataOut.data)
+#    print(ReaderObj.dataOut.datatime)
+#    print(ReaderObj.dataOut.data)
 
 #     print 'do something else with dataOut.data...'
 

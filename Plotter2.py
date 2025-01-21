@@ -2,7 +2,7 @@
 
 from schainpy.model import *
 
-dpath = '/home/pc-igp-173/Documentos/CosmicRays/out/out2/'
+dpath =  '/home/pc-igp-173/Documentos/JRO-CosmicRays/processed_data/d2023156/'
 startDate ='2023/06/05'
 endDate = '2023/06/05'
 startTime = '00:00:00'

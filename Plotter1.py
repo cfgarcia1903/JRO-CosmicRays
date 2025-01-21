@@ -8,7 +8,7 @@ Created on Jul 7, 2014
 from schainpy.controller import Project
 
   
-dpath = '/home/pc-igp-173/Documentos/CosmicRays/out/out2'
+dpath = '/home/pc-igp-173/Documentos/JRO-CosmicRays/processed_data/d2023156/'
 
  
 if __name__ == '__main__':

@@ -1,2 +1,5 @@
-raw_data
-processed_data
+without_modded_shainpy/processed_data*
+without_modded_shainpy/raw_data*
+with_modded_schainpy/takeout.pickle
+/with_modded_schainpy/pdata
+/with_modded_schainpy/raw_data

@@ -5,7 +5,7 @@ import numpy as np
 import datetime
 
 
-path_in = '/home/pc-igp-173/Documentos/JRO-CosmicRays/with_modded_schainpy/pdata/takeout.pickle' ## PICKLE FILE   (input)
+path_in = '/home/pc-igp-173/Documentos/JRO-CosmicRays/with_modded_schainpy/takeout.pickle' ## PICKLE FILE   (input)
 
 with open(path_in,'rb') as file:
     takeout=pickle.load(file)

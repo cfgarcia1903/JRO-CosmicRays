@@ -10,26 +10,24 @@ import os
 import numpy
 import pickle
 import numpy as np
+
+
 def symmetry_hist(data, center=0, bin_num=None, bin_size=None,density=False):
-    if bool(bin_num) == bool(bin_size):
-        raise Exception("bins and bin_size parameters can't be both used at the same time")
-    else:
-        data = np.asarray(data)[~np.isnan(data)]
-        l= np.min(data)
-        h= np.max(data)
-        if bool(bin_size):
-            hn= int(np.ceil((h-center-bin_size/2)/bin_size))
-            h_edges=[center+bin_size*(0.5 + n) for n in range(hn+1)]
-            ln= int(np.ceil((center-l -bin_size/2)/bin_size))
-            l_edges=[center-bin_size*(0.5 + n) for n in range(ln+1)]
-            edges=np.array(sorted(l_edges + h_edges))
+    
+    #data = np.asarray(data)[~np.isnan(data)]
+    l= np.min(data)
+    h= np.max(data)
+    if bin_size:
+        hn= int(np.ceil((h-center-bin_size/2)/bin_size))
+        h_edges=[center+bin_size*(0.5 + n) for n in range(hn+1)]
+        ln= int(np.ceil((center-l -bin_size/2)/bin_size))
+        l_edges=[center-bin_size*(0.5 + n) for n in range(ln+1)]
+        edges=np.array(sorted(l_edges + h_edges))
 
-            hist,_=np.histogram(data, bins=edges,density=density)
-            
-            return edges,hist
-        else:
-            raise Exception("Not implemented, function works only with bin_size")       
-
+        hist,_=np.histogram(data, bins=edges,density=density)
+        
+        return edges,hist
+    
 
 def merge_hists(bins1,hist1,bins2,hist2):
     max_edge1=np.max(bins1)
@@ -48,17 +46,23 @@ def merge_hists(bins1,hist1,bins2,hist2):
         new_bins= np.arange(min_edge,max_edge+0.1*bin_size,bin_size)
         new_hist= np.zeros(len(new_bins)-1)
       
-        lo_index1=np.where(new_bins==bins1[0])[0][0]
-        hi_index1=np.where(new_bins==bins1[-1])[0][0]
+        #lo_index1=np.where(new_bins==bins1[0])[0][0]
+        #hi_index1=np.where(new_bins==bins1[-1])[0][0]
+        lo_index1=np.searchsorted(new_bins, bins1[0])
+        hi_index1=np.searchsorted(new_bins, bins1[-1])
 
         new_hist[lo_index1:hi_index1]+=hist1
 
-        lo_index2=np.where(new_bins==bins2[0])[0][0]
-        hi_index2=np.where(new_bins==bins2[-1])[0][0]
+        #lo_index2=np.where(new_bins==bins2[0])[0][0]
+        #hi_index2=np.where(new_bins==bins2[-1])[0][0]
+        lo_index2=np.searchsorted(new_bins, bins2[0])
+        hi_index2=np.searchsorted(new_bins, bins2[-1])
         
         new_hist[lo_index2:hi_index2]+=hist2    
 
         return new_bins,new_hist
+        
+        
 from schainpy.model.graphics.jroplot_base import Plot, plt, log
 
 
@@ -310,7 +314,7 @@ class RTIPlot(Plot):
         else:
             x, y, z = self.fill_gaps(*self.decimate())
 
-        with open('/home/pc-igp-173/Documentos/JRO-CosmicRays/with_modded_schainpy/pdata/takeout.pickle','rb') as file: #mine
+        with open('/home/pc-igp-173/Documentos/JRO-CosmicRays/with_modded_schainpy/takeout.pickle','rb') as file: #mine
             takeout=pickle.load(file)  #mine
     
         minHei=takeout['info']['minRange']  #mine
@@ -386,7 +390,7 @@ class RTIPlot(Plot):
                     ax.plot_profile.set_data(self.data['rti'][n][-1], self.y)
                     ax.plot_noise.set_data(numpy.repeat(
                         self.data['noise'][n][-1], len(self.y)), self.y)
-        with open('/home/pc-igp-173/Documentos/JRO-CosmicRays/with_modded_schainpy/pdata/takeout.pickle', 'wb') as file:       #mine       
+        with open('/home/pc-igp-173/Documentos/JRO-CosmicRays/with_modded_schainpy/takeout.pickle', 'wb') as file:       #mine       
             pickle.dump(takeout, file)   #mine
 
 

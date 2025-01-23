@@ -50,7 +50,7 @@ if __name__ == '__main__':
     op = spectra.addOperation(name='RTIPlot')
     op.addParameter(name='wintitle', value='RTI', format='str')
     op.addParameter(name='xmin',value=19.99)
-    op.addParameter(name='xmax',value=20.25)
+    op.addParameter(name='xmax',value=20.5)
     op.addParameter(name='ymin',value=7.5)
 
 
